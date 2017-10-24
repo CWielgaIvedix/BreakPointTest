@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A355FC7-D571-41A9-A576-010317882778}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ScanTest</RootNamespace>
-    <AssemblyName>ScanTest</AssemblyName>
+    <RootNamespace>BreakPointTest</RootNamespace>
+    <AssemblyName>BreakPointTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

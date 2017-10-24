@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScanTest
+namespace BreakPointTest
 {
     class Program
     {
@@ -61,10 +61,6 @@ namespace ScanTest
                 LoggingSetup.AddFileTarget();
                 LoggingSetup.SetTargetEnable(LoggingSetup.FileTargetName,
                     true);
-
-                //OmniIdHdkLogger.AddConsoleTarget();
-                //OmniIdHdkLogger.SetTargetEnable(OmniIdHdkLogger.ConsoleTargetName,
-                //    true);            
 
                 // Set in priorities for each of the categories
                 LoggingSetup.SetPriorityLevel(mapGrpToNameSpace[LogGroup.App],
@@ -147,8 +143,7 @@ namespace ScanTest
             #region Scan
 
             var scanCommand = new ScanRfidCmd(null);
-
-
+            
             scanCommand.Bind(null, reader);
 
             var success = RfidCmdDispatchMgr.Singleton.SendQueuedCmd(scanCommand);
@@ -159,28 +154,9 @@ namespace ScanTest
 
             #endregion
 
-            #region Trigger Images
-
-            errMsg = TagUtils.TagUID_StrToInt64(Epc, out var tagUid);
-
-            if (!string.IsNullOrEmpty(errMsg))
-            {
-                throw new Exception($"{Epc} cannot be convert to a tagType");
+            while (true) {
+                Task.Delay(1000).Wait();
             }
-
-
-            while (true)
-            {
-
-                Task.Delay(10000).Wait();
-
-                var setPage = new DataPacketCurPageNum(2);
-                var tagCmd = new TagCmd(setPage, tagUid, null, reader);
-                CmdDispatchMgr.Singleton.SendTriggeredCmdAsync(tagCmd);
-            }
-
-            #endregion
-            
         }
 
         private static void OnTagGtwyChanged(object sender, ITagLocationEventArgs e)
@@ -220,6 +196,10 @@ namespace ScanTest
 
         private static void OnTagRead(object sender, TagReadEventArgs e)
         {
+            // PUT BREAKPOINT HERE
+            // wait for 10 seconds
+            // press continue util the break point stops being hit
+            // for me it is hit about 10 times and then never 10 times
             Console.WriteLine($"{nameof(OnTagRead)} {e.TagReadData.Epc}");
         }
 
